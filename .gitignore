@@ -1,0 +1,27 @@
+node_modules
+package-lock.json
+stats.json
+build
+
+.idea
+.vscode
+
+.npm
+.env
+*.tgz
+
+# Logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+/tmp/
+/pid/
+
+*.map
+*.[oa]
+*~

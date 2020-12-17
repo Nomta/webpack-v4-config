@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const { merge } = require('lodash');
 
 /* plugins */
 
@@ -18,16 +19,10 @@ const port = 3000;
 
 const dirnames = {
     src: 'src',
-    dist: isDev ? 'dist' : 'build',
+    dist: 'dist',
     images: 'images',
     assets: 'assets'
 };
-
- const entry = {
-     main: './index.js'
- }
-
- if (!isDev) entry.polyfills = '@babel/polyfill';
 
 // const filesToCopy = ['favicon.ico'];
 const template = './index.html';
@@ -40,8 +35,9 @@ const aliases = {
 
 const config = {
     context: path.resolve(__dirname, dirnames.src),
-    mode: isDev ? 'development' : 'production',
-    entry,
+    entry: {
+        main: './index.js'
+    },
     output: {
         filename: getFileName('js'),
         path: path.resolve(__dirname, dirnames.dist)
@@ -64,25 +60,41 @@ const config = {
             exclude: /node_modules/,
             loader: getBabelLoader('@babel/preset-typescript')
         }, {
-            test: /\.jsx$/,
-            exclude: /node_modules/,
-            loader: getBabelLoader('@babel/preset-react')
-        }, {
             test: /\.js$/,
             exclude: /node_modules/,
-            loader: isDev ? 'eslint-loader' : getBabelLoader(),
-            // use: getJSLoaders()
+            loader: isDev ? 'eslint-loader' : getBabelLoader()
         }]
     },
-    devServer: { /* contentBase: './', */ port, hot: isDev },
-    devtool: isDev ? 'source-map' : '',
-    optimization: getOptimizationConqfig(),
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    },
     plugins: getPlugins(),
     resolve: {
     //  extensions: ['.js', '.json', '.jsx'],
         alias: {
             '@': path.resolve(__dirname, dirnames.src)
         }
+    }
+}
+
+const devConfig = {
+    mode: 'development',
+    devServer: { /* contentBase: './', */ port, hot: true },
+    devtool: 'source-map'
+}
+
+const prodConfig = {
+    mode: 'production',
+    entry: {
+        polyfills: '@babel/polyfill'
+    },
+    optimization: {
+        minimizer: [
+            new OptimizeCssAssetWebpackPlugin(),
+            new TerserWebpackPlugin()
+        ]
     }
 }
 
@@ -119,29 +131,6 @@ function getFileName(ext) {
     return isDev ? `[name].${ext}` : `[name].[hash].${ext}`;
 }
 
-function getJSLoaders() {
-    const loaders = [ getBabelLoader() ];
-    if (isDev) {
-        loaders.push('eslint-loader')
-    }
-    return loaders;
-}
-
-function getOptimizationConqfig() {
-    const config = {
-        splitChunks: {
-            chunks: 'all'
-        }
-    }
-    if (!isDev) {
-        config.minimizer = [
-            new OptimizeCssAssetWebpackPlugin(),
-            new TerserWebpackPlugin()
-        ]
-    }
-    return config;
-}
-
 function getPatternsToCopy() {
     return filesToCopy.map(filename => ({
         from: path.resolve(__dirname, dirnames.src, filename),
@@ -174,4 +163,4 @@ function getPlugins() {
 
 /* export */
 
-module.exports = config;
+module.exports = merge(isDev ? devConfig : prodConfig, config);

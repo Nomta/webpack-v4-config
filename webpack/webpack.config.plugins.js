@@ -18,7 +18,6 @@ const isDev = process.env.NODE_ENV === 'development';
 const plugins = [
     new HTMLWebpackPlugin({ template }),
     new CleanWebpackPlugin(),
-    new CopyWebpackPlugin(getPatternsToCopy(filesToBeCopy, pathnames.src, pathnames.dist)),
     // Error in development: [alias] is not defined
     // new webpack.ProvidePlugin(aliases)
 ];
@@ -29,6 +28,11 @@ if (!isDev) {
     if (process.env.NODE_ENV === 'stats') {
         plugins.push(new BundleAnalyzerPlugin());
     }
+}
+
+if (filesToBeCopy && filesToBeCopy.length) {
+    const patterns = getPatternsToCopy(filesToBeCopy, pathnames.src, pathnames.dist);
+    plugins.push(new CopyWebpackPlugin(patterns));
 }
 
 

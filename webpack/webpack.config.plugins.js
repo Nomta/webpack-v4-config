@@ -4,7 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-const webpack = require('webpack');
+// const webpack = require('webpack');
 
 const { getPathName, getPatternsToCopy, getPathNames } = require('./utils');
 const { aliases, filesToBeCopy, template } = require('./config');
@@ -23,15 +23,18 @@ const plugins = [
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin(getPatternsToCopy(filesToBeCopy, pathnames.src, pathnames.dist)),
-    new MiniCssExtractPlugin({
-        filename: getPathName('css')
-    }),
+    // Error in development: [alias] is not defined
     // new webpack.ProvidePlugin(aliases)
 ];
 
-if (process.env.NODE_ENV === 'stats') {
-    plugins.push(new BundleAnalyzerPlugin())
+if (!isDev) {
+    plugins.push(new MiniCssExtractPlugin({ filename: getPathName('css') }));
+
+    if (process.env.NODE_ENV === 'stats') {
+        plugins.push(new BundleAnalyzerPlugin());
+    }
 }
+
 
 /* export */
 

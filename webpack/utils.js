@@ -15,11 +15,12 @@ exports.getBabelLoader = function(...presets) {
 
 exports.getCSSLoaders = function(...loaders) {
     const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-    
-    return [{
-        loader: MiniCssExtractPlugin.loader,
-        options: { hmr: isDev, reloadAll: true },
-    }, 'css-loader', ...loaders];
+
+    return [
+        isDev ? 'style-loader' : MiniCssExtractPlugin.loader, 
+        'css-loader', 
+        ...loaders
+    ];
 }
 
 exports.getFileLoaders = function(dirName) {

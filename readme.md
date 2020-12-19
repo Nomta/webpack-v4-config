@@ -14,7 +14,7 @@ Output directory: `dist`
 
 ##### Development with webpack-dev-server
 
-On port 3000 ([`localhost:3000`](http://localhost:3000/))   
+On port 3000 (`http://localhost:3000/`)   
 Command: `npm start`  
 Output directory: none  
 

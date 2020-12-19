@@ -1,8 +1,8 @@
 # Webpack v4 Config
 
 Input directory: `src`  
-Common config file: `webpack/webpack.config.common.js`
-Settings: `webpack/config.js`
+Common config file: `webpack/webpack.config.common.js`  
+Settings: `webpack/config.js` 
 
 ### Modes
 
@@ -10,11 +10,11 @@ Settings: `webpack/config.js`
 
 Command: `npm run dev`  
 Config file: `webpack/webpack.config.dev.js`  
-Output directory: `dist`
+Output directory: `dist`  
 
 ##### Development with webpack-dev-server
 
-On port 3000 ([localhost:3000](http://localhost:3000/))
+On port 3000 ([`localhost:3000`](http://localhost:3000/))   
 Command: `npm start`  
 Output directory: none  
 

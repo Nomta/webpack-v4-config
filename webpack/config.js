@@ -1,10 +1,15 @@
 /* pathnames */
 
 exports.dirnames = {
+/* main paths */
     src: 'src',
     dist: 'dist',
+/* sub directories */
+    assets: 'assets',
+    fonts: 'assets',
     images: 'images',
-    assets: 'assets'
+    scripts: 'scripts',
+    styles: 'styles'
 }
 
 exports.fileNamePatterns = {
@@ -13,14 +18,14 @@ exports.fileNamePatterns = {
     stats: '[name].[hash:5]'
 }
 
-exports.filesToBeCopy = ['favicon.ico'];
+exports.filesToBeCopy = [];
 
 exports.template = './index.html';
 
 /* dependencies */
 
 exports.aliases = {
-    _: 'lodash'
+    lodash: 'lodash'
 };
 
 /* devServer */

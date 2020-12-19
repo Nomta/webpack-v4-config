@@ -1,5 +1,11 @@
-const { dirnames } = require('./config');
-const { getBabelLoader, getCSSLoaders, getFileLoaders } = require('./utils');
+const { 
+    getBabelLoader, 
+    getCSSLoaders, 
+    getFileLoaders, 
+    getPathNames 
+} = require('./utils');
+
+const pathnames = getPathNames(__dirname);
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -14,10 +20,10 @@ const webpackModule = {
         use: getCSSLoaders('sass-loader')
     }, {
         test: /\.(png|jpg|svg|gif)$/,
-        use: getFileLoaders(dirnames.images)
+        use: getFileLoaders(pathnames.images)
     }, {
         test: /\.(ttf|woff|woff2|eot)$/,
-        use: getFileLoaders(dirnames.assets)
+        use: getFileLoaders(pathnames.fonts)
     }, {
         test: /\.ts$/,
         exclude: /node_modules/,

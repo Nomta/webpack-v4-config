@@ -16,11 +16,7 @@ const isDev = process.env.NODE_ENV === 'development';
 /* plugins */
 
 const plugins = [
-    new HTMLWebpackPlugin({
-        minify: { collapseWhitespace: !isDev },
-        // title: 'Webpack v4',
-        template
-    }),
+    new HTMLWebpackPlugin({ template }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin(getPatternsToCopy(filesToBeCopy, pathnames.src, pathnames.dist)),
     // Error in development: [alias] is not defined

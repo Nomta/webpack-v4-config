@@ -67,10 +67,10 @@ exports.getPatternsToCopy = function(files, src, dist) {
 /* internal */
 
 function getExtensionType(ext) {
-    if (/js|jsx|ts/.test(ext)) return 'scripts';
-    if (/(c|sa|sc)ss/.test(ext)) return 'styles';
-    if (/png|jpg|svg|gif/.test(ext)) return 'images';
-    if (/ttf|woff2?|eot/.test(ext)) return 'fonts';
+    if (/^(js|jsx|ts)$/.test(ext)) return 'scripts';
+    if (/^(c|sa|sc)ss$/.test(ext)) return 'styles';
+    if (/^(png|jpe?g|svg|gif)$/.test(ext)) return 'images';
+    if (/^(ttf|woff2?|eot)$/.test(ext)) return 'fonts';
     return 'assets';
 }
 

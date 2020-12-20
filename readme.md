@@ -12,8 +12,7 @@ Command: `npm run dev`
 Config file: `webpack/webpack.config.dev.js`  
 Output directory: `dist`  
 
-##### Development with webpack-dev-server
-
+###### Development with webpack-dev-server
 On port 3000 (`http://localhost:3000/`)   
 Command: `npm start`  
 Output directory: none  

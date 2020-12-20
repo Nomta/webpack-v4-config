@@ -18,12 +18,9 @@ const config = {
     optimization: {
         splitChunks: {
             chunks: 'all'
-        },
-        // nodeEnv: true    // передает переменные в код самого приложения:
-        // if (NODE_ENV === 'development') console.log(...)
+        }
     },
     resolve: {
-    //  extensions: ['.js', '.json', '.jsx'],
         alias: Object.assign({}, alias, {
             '@': path.resolve(__dirname, pathnames.src)
         })

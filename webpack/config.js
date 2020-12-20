@@ -24,7 +24,7 @@ exports.template = './index.html';
 
 /* dependencies */
 
-exports.aliases = {
+exports.alias = {
     lodash: 'lodash'
 };
 

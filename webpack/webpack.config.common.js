@@ -1,5 +1,6 @@
 const path = require('path');
 const { getPathName, getPathNames } = require('./utils');
+const { alias } = require('./config');
 
 const pathnames = getPathNames(__dirname);
 
@@ -23,9 +24,9 @@ const config = {
     },
     resolve: {
     //  extensions: ['.js', '.json', '.jsx'],
-        alias: {
+        alias: Object.assign({}, alias, {
             '@': path.resolve(__dirname, pathnames.src)
-        }
+        })
     },
     module: require('./webpack.config.module'),
     plugins: require('./webpack.config.plugins')

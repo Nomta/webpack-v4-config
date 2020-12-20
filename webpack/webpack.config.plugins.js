@@ -4,10 +4,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-// const webpack = require('webpack');
+const webpack = require('webpack');
 
 const { getPathName, getPatternsToCopy, getPathNames } = require('./utils');
-const { aliases, filesToBeCopy, template } = require('./config');
+const { alias, filesToBeCopy, template } = require('./config');
 
 const pathnames = getPathNames(__dirname);
 
@@ -18,8 +18,7 @@ const isDev = process.env.NODE_ENV === 'development';
 const plugins = [
     new HTMLWebpackPlugin({ template }),
     new CleanWebpackPlugin(),
-    // Error in development: [alias] is not defined
-    // new webpack.ProvidePlugin(aliases)
+    new webpack.ProvidePlugin(alias)
 ];
 
 if (!isDev) {

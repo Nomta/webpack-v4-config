@@ -1,7 +1,7 @@
 {
   "name": "webpack-v4-config",
   "version": "1.0.0",
-  "description": "webpack config",
+  "description": "Webpack config",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack",
     "build": "cross-env NODE_ENV=production webpack",
@@ -10,13 +10,8 @@
     "stats": "cross-env NODE_ENV=stats webpack --json > stats.json && webpack-bundle-analyzer stats.json"
   },
   "browserslist": "> 0.25%, not dead",
-  "keywords": [
-    "js",
-    "javascript",
-    "webpack"
-  ],
-  "author": "Vladilen <v@mail.ru>",
-  "license": "ISC",
+  "author": "Nomta",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.8.3",
     "@babel/plugin-proposal-class-properties": "^7.8.3",

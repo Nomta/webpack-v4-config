@@ -8,7 +8,7 @@ exports.getBabelLoader = function(...presets) {
         options: {
             presets: [ '@babel/preset-env', ...presets ],
             plugins: [ '@babel/plugin-proposal-class-properties' ],
-            // babelrc: false
+            babelrc: false
         }
     };
 }
@@ -23,26 +23,23 @@ exports.getCSSLoaders = function(...loaders) {
     ];
 }
 
-exports.getFileLoaders = function(dirName) {
+exports.getFileLoaders = function(dirname) {
     const path = require('path');
     
     return [{
         loader: 'file-loader',
         options: {
-            name:  path.resolve(__dirname, dirName, getFileName('[ext]'))
+            name:  path.resolve(__dirname, exports.getPathName('[ext]', dirname))
         }
     }];
 }
 
 /* paths */
 
-exports.getPathName = function(ext) {
-    if (isDev) {
-        return getFileName(ext);
-    }
+exports.getPathName = function(ext, dirname) {
     const { dirnames, fileNamePatterns } = require('./config');
-    const pattern = fileNamePatterns['production'];
-    const dirname = dirnames[getExtensionType(ext)];
+    const pattern = fileNamePatterns[process.env.NODE_ENV];
+    dirname = dirname || dirnames[getExtensionType(ext)];
     
     return `${dirname}/${pattern}.${ext}`;
 }
@@ -72,11 +69,4 @@ function getExtensionType(ext) {
     if (/^(png|jpe?g|svg|gif)$/.test(ext)) return 'images';
     if (/^(ttf|woff2?|eot)$/.test(ext)) return 'fonts';
     return 'assets';
-}
-
-function getFileName(ext) {
-    const { fileNamePatterns } = require('./config');
-    const pattern = fileNamePatterns[process.env.NODE_ENV];
-
-    return `${pattern}.${ext}`;
 }

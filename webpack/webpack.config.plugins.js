@@ -30,7 +30,6 @@ if (filesToBeCopy && filesToBeCopy.length) {
     plugins.push(new CopyWebpackPlugin(patterns));
 }
 
-
 /* export */
 
 module.exports = plugins;

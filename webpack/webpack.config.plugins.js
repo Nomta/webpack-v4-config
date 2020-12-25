@@ -14,7 +14,12 @@ const plugins = [
     new webpack.ProvidePlugin(alias)
 ];
 
-if (!isDev) {
+if (isDev) {
+    const WebpackNotifierPlugin = require('webpack-notifier');
+    plugins.push(new WebpackNotifierPlugin());
+}
+
+else {
     const MiniCssExtractPlugin = require('mini-css-extract-plugin');
     plugins.push(new MiniCssExtractPlugin({ filename: getPathName('css') }));
 
